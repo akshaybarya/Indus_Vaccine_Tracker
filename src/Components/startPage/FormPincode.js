@@ -5,6 +5,7 @@ import Table from './Table'
 const FormPincode = () => {
     const [pincode, setPincode] = useState('');
     const [availableSessions, setSessions] = useState([]);
+    const [err, seterr] = useState('')
 
     const getDetails = async () => {
         if (pincode === "") {
@@ -36,7 +37,11 @@ const FormPincode = () => {
                     config
                 );
                 setSessions(res.data.sessions);
-                //console.log(res.data.sessions);
+                if (availableSessions.length === 0) {
+                    seterr('Currently No vaccination Slots Available');
+                } else {
+                    seterr('');
+                }
             } catch (error) {
                 console.log(error);
             }
@@ -98,7 +103,9 @@ const FormPincode = () => {
                         {availableSessions.length !== 0 ? (
                             <Table availableSessions={availableSessions} />
                         ) : (
-                            <Fragment />
+                            <Fragment>
+                                <h1 class="warning">{err}</h1>
+                            </Fragment>
                         )}
                     </div>
                     <div class="col-md-1"></div>

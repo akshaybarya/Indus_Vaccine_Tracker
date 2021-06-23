@@ -8,6 +8,7 @@ const Form = () => {
   const [Districts, fetchDistricts] = useState([]);
   const [selctedDistrict, setSelectedDistrict] = useState("");
   const [availableSessions, setSessions] = useState([]);
+  const [err, seterr] = useState('')
 
   useEffect(async () => {
     try {
@@ -78,7 +79,12 @@ const Form = () => {
           config
         );
         setSessions(res.data.sessions);
-        console.log(res.data.sessions);
+        //console.log(res.data.sessions);
+        if (availableSessions.length === 0) {
+          seterr('Currently No vaccination Slots Available');
+        } else {
+          seterr('');
+        }
       } catch (error) {
         console.log(error);
       }
@@ -161,7 +167,10 @@ const Form = () => {
             {availableSessions.length !== 0 ? (
               <Table availableSessions={availableSessions} />
             ) : (
-              <Fragment />
+              <Fragment>
+                <center><b class="warning">{err}</b></center>
+                <br /><br />
+              </Fragment>
             )}
           </div>
           <div class="col-md-1"></div>

@@ -517,3 +517,9 @@ li.social-btn {
 .Special_a:hover {
   color: rgba(255, 255, 255, 1);
 }
+
+.warningIcon {
+  color: rgba(255, 255, 255, 0);
+  font-size: 2px;
+  margin-bottom: 4rem;
+}
